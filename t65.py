@@ -3,17 +3,17 @@ import sys, os, time, random, pygame
 import RPi.GPIO as GPIO
 
 def speel(bestand):
-    pygame.mixer.music.load(bestand)
+    pygame.mixer.music.load("audio/" + bestand)
     pygame.mixer.music.play()
     while pygame.mixer.music.get_busy() == True:
         continue
 
 def speelSom(getal1, getal2):
     print "Wat is", getal1, "x", getal2,"?"
-    speel("audio/" + str(getal1) + ".mp3")
-    speel("audio/keer.mp3")
-    speel("audio/" + str(getal2) + ".mp3")
-    speel("audio/is.mp3")
+    speel(str(getal1) + ".mp3")
+    speel("keer.mp3")
+    speel(str(getal2) + ".mp3")
+    speel("is.mp3")
 
 def getNummer():
     nPulsen = 0
@@ -75,7 +75,7 @@ while True:
 
         # Welk tafeltje oefenen?
         print "Welk tafeltje?"
-        speel("audio/welk.mp3")
+        speel("welk.mp3")
         tafeltje = getNummer()
 
         # Lijst om bij te houden welke sommen goed/fout beantwoord zijn
@@ -120,13 +120,13 @@ while True:
                 aantalGoed = aantalGoed + 1
                 sommen[getal1 - 1] = 1
                 print "Goed zo!"
-                speel("audio/goed.mp3")
+                speel("goed.mp3")
             else:
                 print "Jammer, de juiste uitkomst is", uitkomst
-                speel("audio/fout.mp3")
-                speel("audio/" + str(uitkomst) + ".mp3")
+                speel("fout.mp3")
+                speel(str(uitkomst) + ".mp3")
             print
             time.sleep(1)
-        speel("audio/einde.mp3")
+        speel("einde.mp3")
     except KeyboardInterrupt: # Ctrl+C
         GPIO.cleanup()
